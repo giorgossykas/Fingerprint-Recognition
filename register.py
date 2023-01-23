@@ -1,1 +1,1 @@
-def register_user_fingerprints():
+def register_user_fingerprints()
