@@ -1,0 +1,1 @@
+def register_user_fingerprints():
