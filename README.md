@@ -15,5 +15,5 @@ Below are all the .py and .yml files extensively described.
 If you do not want to train the network from scratch there is an already trained model which you can access and download [here](insert link). You can also downoad the untrained model to compare the difference in results.  
 All the code was written in Python 3.9.  
 Credits: 
-- Minutiae extraction code from [Utkarsh-Deshmukh](https://github.com/Utkarsh-Deshmukh/Fingerprint-Feature-Extraction).
-- Image enhancement code again from(different project) [Utkarsh-Deshmukh](https://github.com/Utkarsh-Deshmukh/Fingerprint-Enhancement-Python/blob/develop/src/FingerprintImageEnhancer.py).
+- [Minutiae extraction code](https://github.com/Utkarsh-Deshmukh/Fingerprint-Feature-Extraction) from Utkarsh-Deshmukh.
+- [Image enhancement code](https://github.com/Utkarsh-Deshmukh/Fingerprint-Enhancement-Python/blob/develop/src/FingerprintImageEnhancer.py) again from Utkarsh-Deshmukh.
