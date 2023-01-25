@@ -274,7 +274,7 @@ with tf.device('GPU'):
 # Set up logging directory
 
 name = "CustomCNN_final"
-logdir = os.path.join(r'/home/giorgossykas', name) # Change directory
+logdir = os.path.join(r'/home/giorgossykas', name) # Change directory to the desired one on your machine.
 
 if not os.path.exists(logdir):
     os.mkdir(logdir)

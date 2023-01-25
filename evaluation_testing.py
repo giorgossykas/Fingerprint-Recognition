@@ -11,7 +11,7 @@
 # for a single comparison.
 
 # The "evaluate(X, Y, targetFPR, embedding_model)" method takes as input the images X,
-# their labels Y the desired Flase Positive Rate targetFPR and the embedding model.
+# their labels Y the desired Flase Positive Rate, targetFPR, and the embedding model.
 # If an embedding model is passed as an argument then the ROC curve will be calculated
 # from comparisons from the embedding model. If only X, Y, targetFPR arguments are passed
 # then the ROC curve will automatically be calculated from comparisons of minutiae points

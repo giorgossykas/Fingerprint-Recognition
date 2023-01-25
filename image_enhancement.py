@@ -8,57 +8,7 @@
 # the final enhanced image and the "process_and_display" method displays
 # all the steps taken to get to the final image.
 
-# Class for preprocessing, inherits the enhancment from the other class.
-class ProcessEnhance(FingerprintImageEnhancer):
-    def __init__(self):
-        super().__init__()
-
-    def binarize(self, img):
-        # Resize
-        dim = 512
-        img = cv.resize(img, (dim, dim), interpolation=cv.INTER_AREA)
-
-        # Create mask
-        mask = np.zeros((dim, dim))
-        mask = cv.ellipse(mask, center=(int(dim / 2), int(dim / 2)), axes=(90 * 2, 120 * 2),
-                          angle=0, startAngle=0, endAngle=360, color=255, thickness=-1)
-
-        # Grayscale
-        gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-
-        # Contrast Limited Adaptive Histogram Equalization - CLAHE
-        clahe = cv.createCLAHE(clipLimit=20, tileGridSize=(100, 100))
-        cl = clahe.apply(np.uint8(gray))
-
-        # Binarization - Niblack Thresholding
-        nib_thr = threshold_niblack(cl, window_size=21, k=0.1)
-        nib = cl > nib_thr
-        nib = np.multiply(mask / 255., nib)
-        nib = nib * 255
-        self.nib = nib
-
-        return nib
-
-    def process(self, img):
-        '''Runs two methods, first the preprocessing above and then the code for the enhancement'''
-        niblack = self.binarize(img)
-        enhanced_image = self.enhance(niblack) * 255.
-        return enhanced_image
-
-    def process_and_display(self, img):
-        # Display all steps of the process
-        cv.namedWindow('Original', cv.WINDOW_NORMAL)
-        cv.imshow('Original', img)
-
-        niblack = self.binarize(img)
-        cv.namedWindow('Step 1: Binarized', cv.WINDOW_NORMAL)
-        cv.imshow('Step 1: Binarized', niblack)
-
-        enhanced_image = self.enhance(niblack) * 255.
-        cv.namedWindow('Step 2: Enhanced', cv.WINDOW_NORMAL)
-        cv.imshow('Step 2: Enhanced', enhanced_image)
-        cv.waitKey(0)
-
+# Parent Class for a part of the image enhancement, line 523 for the other Class
 class FingerprintImageEnhancer(object):
     def __init__(self):
         self.ridge_segment_blksze = 16
@@ -568,3 +518,55 @@ class FingerprintImageEnhancer(object):
         self.__ridge_freq()         # compute major frequency of ridges
         self.__ridge_filter()       # filter the image using oriented gabor filter
         return(self._binim)
+
+
+# Class for preprocessing, inherits the enhancement from the other class.
+class ProcessEnhance(FingerprintImageEnhancer):
+    def __init__(self):
+        super().__init__()
+
+    def binarize(self, img):
+        # Resize
+        dim = 512
+        img = cv.resize(img, (dim, dim), interpolation=cv.INTER_AREA)
+
+        # Create mask
+        mask = np.zeros((dim, dim))
+        mask = cv.ellipse(mask, center=(int(dim / 2), int(dim / 2)), axes=(90 * 2, 120 * 2),
+                          angle=0, startAngle=0, endAngle=360, color=255, thickness=-1)
+
+        # Grayscale
+        gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+
+        # Contrast Limited Adaptive Histogram Equalization - CLAHE
+        clahe = cv.createCLAHE(clipLimit=20, tileGridSize=(100, 100))
+        cl = clahe.apply(np.uint8(gray))
+
+        # Binarization - Niblack Thresholding
+        nib_thr = threshold_niblack(cl, window_size=21, k=0.1)
+        nib = cl > nib_thr
+        nib = np.multiply(mask / 255., nib)
+        nib = nib * 255
+        #self.nib = nib
+
+        return nib
+
+    def process(self, img):
+        '''Runs two methods, first the preprocessing above and then the code for the enhancement'''
+        niblack = self.binarize(img)
+        enhanced_image = self.enhance(niblack) * 255.
+        return enhanced_image
+
+    def process_and_display(self, img):
+        # Display all steps of the process
+        cv.namedWindow('Original', cv.WINDOW_NORMAL)
+        cv.imshow('Original', img)
+
+        niblack = self.binarize(img)
+        cv.namedWindow('Step 1: Binarized', cv.WINDOW_NORMAL)
+        cv.imshow('Step 1: Binarized', niblack)
+
+        enhanced_image = self.enhance(niblack) * 255.
+        cv.namedWindow('Step 2: Enhanced', cv.WINDOW_NORMAL)
+        cv.imshow('Step 2: Enhanced', enhanced_image)
+        cv.waitKey(0)

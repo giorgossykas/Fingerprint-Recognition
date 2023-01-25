@@ -12,7 +12,7 @@ FeaturesTerminations, FeaturesBifurcations = extract_minutiae_features(image,
                                                                        showResult = False,
                                                                        saveResult = False)
 Returns 2 objects, FeaturesTerminations and FeaturesBifurcations
-each of which has 4 attributes, locX, locY, Orientation, Type
+each of which has 4 attributes, locX, locY, Orientation, Type.
 
 Setting showResult=True on line 12 will also display the minutiae on the fingerprint image.
 '''
