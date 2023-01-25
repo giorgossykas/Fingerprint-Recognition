@@ -31,3 +31,4 @@ from register import *
 '''
 
 if name == "__main__":
+    # Run app
