@@ -46,14 +46,13 @@ if __name__ == "__main__":
         enhancer = ProcessEnhance()
 
         # Find the directory in which the images are stored, my own or the poly dataset
-        #dir = "C:/Users/giorg/OneDrive/Υπολογιστής/Python scripts/Fingerprint recognition notebook/Fingerprint Data/myFingerprintData/new"
-        dir = os.getcwd()
-        dir = os.path.join(dir, "Fingerprint Data\\myFingerprintData\\newdata")
+        dir = r"C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\Fingerprint Data\myFingerprintData\new"
+        #dir = os.getcwd()
+        #dir = os.path.join(dir, "Fingerprint Data\\myFingerprintData\\newdata")
         i = 0
         for image in os.listdir(dir): # I have 15 images, 5 fingers with 3 different fingerprint images for each.
-            path = '.\\Fingerprint Data\\myFingerprintData\\new' + '\\' + image
+            path = dir + '\\' + image
             img = cv.imread(path)
-            print(type(img))
             img = aligner.process(img)
             img = enhancer.process(img)
             images[i, :, :] = img
@@ -64,8 +63,8 @@ if __name__ == "__main__":
         # Their names were in the form of Li_2.jpg which stands for Left hand, index finger, second image
         # Next step is to transform every image into an embedding using the CNN  to display the ROC curve
         # First I load the embedding model
-        embedding_model = tf.keras.load_model('C:/Users/giorg/OneDrive/Υπολογιστής/Python scripts/Fingerprint recognition notebook/untrained_model.h5')
-        embedding_model = tf.keras.load_weights('C:/Users/giorg/OneDrive/Υπολογιστής/Python scripts/Fingerprint recognition notebook/CustomCNN_final/emb_model.h5')
+        embedding_model = tf.keras.models.load_model(r'C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\untrained_model.h5')
+        embedding_model.load_weights(r'C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\CustomCNN_final\emb_model.h5')
 
         # CNN requires 356x328 images, and I have 350x350, so I must resize them first
         # and binarize them again because after the resizing they will become grayscale.

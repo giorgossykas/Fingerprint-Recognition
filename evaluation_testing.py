@@ -18,6 +18,7 @@
 # (the "compare_fingerprints" method is automatically chosen).
 
 import numpy as np
+import math
 from sklearn.metrics import roc_curve, roc_auc_score
 from matplotlib import pyplot as plt
 

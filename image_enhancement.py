@@ -12,6 +12,9 @@ import numpy as np
 import cv2 as cv
 import math
 import scipy
+from scipy import signal
+from scipy import ndimage
+from skimage.filters import threshold_otsu, threshold_niblack, threshold_sauvola
 
 
 # Parent Class for a part of the image enhancement, line 523 for the other Class
