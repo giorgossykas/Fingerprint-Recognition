@@ -6,6 +6,11 @@
 # "process" returns the final aligned, cropped image and
 # "process_and_display" displays all the steps taken in order to get there.
 
+import cv2 as cv
+import math
+import numpy as np
+
+
 class OrientationCrop:
 
     def __init__(self):

@@ -17,6 +17,10 @@
 # then the ROC curve will automatically be calculated from comparisons of minutiae points
 # (the "compare_fingerprints" method is automatically chosen).
 
+import numpy as np
+from sklearn.metrics import roc_curve, roc_auc_score
+from matplotlib import pyplot as plt
+
 class Evaluator:
 
     def __init__(self):
@@ -100,7 +104,7 @@ class Evaluator:
             Y : tensor of shape (m,) containing true class
 
         Returns
-            probs : array of shape (m,m) contaning distances
+            probs : array of shape (m,m) containing distances
         '''
 
         if embedding_model != None:  # embedding_model==None means minutiae evaluation, else CNN
@@ -127,7 +131,7 @@ class Evaluator:
                 else:
                     probs[k] = -np.linalg.norm(embeddings[i, :] - embeddings[j, :])
 
-                if (Y[i] == Y[j]):
+                if Y[i] == Y[j]:
                     y[k] = 1
                 else:
                     y[k] = 0

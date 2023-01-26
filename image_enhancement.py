@@ -8,6 +8,12 @@
 # the final enhanced image and the "process_and_display" method displays
 # all the steps taken to get to the final image.
 
+import numpy as np
+import cv2 as cv
+import math
+import scipy
+
+
 # Parent Class for a part of the image enhancement, line 523 for the other Class
 class FingerprintImageEnhancer(object):
     def __init__(self):
