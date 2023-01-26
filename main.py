@@ -83,8 +83,66 @@ if __name__ == "__main__":
         result.evaluate(X, Y, targetFPR = 1e-03, embedding_model = embedding_model)
 
     elif answer == 2:
-        print(2)
+        # Choose one picture to display the process before being fed into the network
+        img = cv.imread(r"C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\Fingerprint Data\myFingerprintData\new\L_i_1.jpg")
+
+        # First align and crop the image
+        aligner = OrientationCrop()
+        enhancer = ProcessEnhance()
+        aligner.process_and_display(img)
+        img = aligner.process(img)
+        enhancer.process_and_display(img)
     elif answer == 3:
-        print(3)
+        # First get the image of the user, here lets say it's the image L_i_1.jpg again
+        img = cv.imread(r"C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\Fingerprint Data\myFingerprintData\new\L_i_1.jpg")
+        aligner = OrientationCrop()
+        enhancer = ProcessEnhance()
+        img = aligner.process(img)
+        img = enhancer.process(img)
+        # This the processed fingerprint image which will
+        # now be resized to be fed into the network
+        temp = cv.resize(img, (328, 356), interpolation=cv.INTER_CUBIC)
+        nib_thr = threshold_niblack(temp, window_size=21, k=0.1)
+        temp = temp > nib_thr
+        temp = temp * 255
+        img = temp
+        img = np.expand_dims(img, axis=-1)
+        img = np.expand_dims(img, axis=0)
+        print(img.shape)
+        # Feeding the CNN - first load it
+        embedding_model = tf.keras.models.load_model(r'C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\untrained_model.h5')
+        embedding_model.load_weights(r'C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\CustomCNN_final\emb_model.h5')
+        embedding = embedding_model.predict(img)
+        # Now the euclidean distance between this embedding and all the others
+        # already stored in the database will be calculated. If the distance is
+        # below a certain threshold, selected from the ROC curve, the corresponding
+        # fingerprint will be considered a match.
     elif answer == 4:
-        print(4)
+        # Same as before (case 3) the embedding will be calculated and stored
+        # in the database along with the name of the individual which is asked.
+        # First get the image of the user, here lets say it's the image L_i_1.jpg again
+        img = cv.imread(
+            r"C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\Fingerprint Data\myFingerprintData\new\L_i_1.jpg")
+        aligner = OrientationCrop()
+        enhancer = ProcessEnhance()
+        img = aligner.process(img)
+        img = enhancer.process(img)
+        # This the processed fingerprint image which will
+        # now be resized to be fed into the network
+        temp = cv.resize(img, (328, 356), interpolation=cv.INTER_CUBIC)
+        nib_thr = threshold_niblack(temp, window_size=21, k=0.1)
+        temp = temp > nib_thr
+        temp = temp * 255
+        img = temp
+        img = np.expand_dims(img, axis=-1)
+        img = np.expand_dims(img, axis = 0)
+
+        # Feeding the CNN - first load it
+        embedding_model = tf.keras.models.load_model(
+            r'C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\untrained_model.h5')
+        embedding_model.load_weights(
+            r'C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\CustomCNN_final\emb_model.h5')
+        embedding = embedding_model.predict(img)
+        print(embedding)
+        fullname = input("Enter your Fullname: ")
+        # Now save both the name and the embedding
