@@ -19,6 +19,24 @@ Setting showResult=True on line 12 will also display the minutiae on the fingerp
 
 # Method used to extract the minutiae points.
 # Input is a processed image(binarized etc.)
+
+import numpy as np
+import math
+import skimage
+import time
+from PIL import Image
+import cv2 as cv
+import numpy as np
+import os
+from matplotlib import pyplot as plt
+from matplotlib import cm
+from skimage.filters import threshold_otsu, threshold_niblack, threshold_sauvola
+from sklearn.metrics import roc_curve, roc_auc_score
+plt.style.use('seaborn')
+import skimage.morphology
+from skimage.morphology import convex_hull_image, erosion
+from skimage.morphology import square
+
 def extract_minutiae_features(img, spuriousMinutiaeThresh=10, invertImage=False, showResult=False, saveResult=False):
     feature_extractor = FingerprintFeatureExtractor()
     feature_extractor.setSpuriousMinutiaeThresh(spuriousMinutiaeThresh)
@@ -214,3 +232,6 @@ class FingerprintFeatureExtractor(object):
             (rr, cc) = skimage.draw.circle_perimeter(row, col, 3)
             skimage.draw.set_color(DispImg, (rr, cc), (255, 0, 0))
         cv.imwrite('result.png', DispImg)
+
+#test_img = img = cv.imread(r"C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\Fingerprint Data\myFingerprintData\new\L_i_1.jpg")
+#extract_minutiae_features(test_img, showResult=True)

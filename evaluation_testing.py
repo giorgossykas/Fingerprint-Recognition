@@ -8,15 +8,17 @@
 # orientation. It returns the number of matched minutiae points.
 # Depending on the threshold of choice (based on the desired FPR)
 # a decision is made for a match or not. It can also be used independently
-# for a single comparison.
+# for a single comparison and even display the minutiae points if the
+# parameter showResult is set to True.
 
 # The "evaluate(X, Y, targetFPR, embedding_model)" method takes as input the images X,
-# their labels Y the desired Flase Positive Rate, targetFPR, and the embedding model.
+# their labels Y the desired False Positive Rate, targetFPR, and the embedding model.
 # If an embedding model is passed as an argument then the ROC curve will be calculated
 # from comparisons from the embedding model. If only X, Y, targetFPR arguments are passed
 # then the ROC curve will automatically be calculated from comparisons of minutiae points
 # (the "compare_fingerprints" method is automatically chosen).
 
+from minutiae_extraction import *
 import numpy as np
 import math
 from sklearn.metrics import roc_curve, roc_auc_score

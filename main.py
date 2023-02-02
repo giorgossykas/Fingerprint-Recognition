@@ -59,39 +59,62 @@ if __name__ == "__main__":
             labels.append(image.split('_')[0])
             i+=1
 
-        # Now my images are stored in X, all with dims 350x350 and their labels are stored in Y
-        # Their names were in the form of Li_2.jpg which stands for Left hand, index finger, second image
-        # Next step is to transform every image into an embedding using the CNN  to display the ROC curve
-        # First I load the embedding model
-        embedding_model = tf.keras.models.load_model(r'C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\untrained_model.h5')
-        embedding_model.load_weights(r'C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\CustomCNN_final\emb_model.h5')
+        choice = 0
+        # Now choose the method to follow
+        while (choice != 1) and (choice != 2):
+            choice = int(input("Type 1 for CNN and 2 for Minutiae > "))
+        if choice==1:
+            # Now my images are stored in X, all with dims 350x350 and their labels are stored in Y
+            # Their names were in the form of Li_2.jpg which stands for Left hand, index finger, second image
+            # Next step is to transform every image into an embedding using the CNN  to display the ROC curve
+            # First I load the embedding model
+            embedding_model = tf.keras.models.load_model(r'C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\untrained_model.h5')
+            embedding_model.load_weights(r'C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\CustomCNN_final\emb_model.h5')
 
-        # CNN requires 356x328 images, and I have 350x350, so I must resize them first
-        # and binarize them again because after the resizing they will become grayscale.
-        X = np.empty((images.shape[0], 356, 328))
-        for i in range(images.shape[0]):
-            temp = cv.resize(images[i, :, :], (328, 356), interpolation=cv.INTER_CUBIC)
-            nib_thr = threshold_niblack(temp, window_size=21, k=0.1)
-            temp = temp > nib_thr
-            temp = temp * 255
-            X[i, :, :] = temp
-        X = np.expand_dims(X, axis = -1)
-        Y = labels
+            # CNN requires 356x328 images, and I have 350x350, so I must resize them first
+            # and binarize them again because after the resizing they will become grayscale.
+            X = np.empty((images.shape[0], 356, 328))
+            for i in range(images.shape[0]):
+                temp = cv.resize(images[i, :, :], (328, 356), interpolation=cv.INTER_CUBIC)
+                nib_thr = threshold_niblack(temp, window_size=21, k=0.1)
+                temp = temp > nib_thr
+                temp = temp * 255
+                X[i, :, :] = temp
+            cv.imwrite("fingerprint.jpg", X[0])
+            X = np.expand_dims(X, axis = -1)
+            Y = labels
 
-        # Now I will run the method "evaluate" to draw the ROC curve
-        # If I omit the embedding model argument it will be calculated using the minutiae points
-        result.evaluate(X, Y, targetFPR = 1e-03, embedding_model = embedding_model)
+            # Now I will run the method "evaluate" to draw the ROC curve
+            # If I omit the embedding model argument it will be calculated using the minutiae points
+            result.evaluate(X, Y, targetFPR = 1e-03, embedding_model = embedding_model)
+
+        elif choice==2:
+            X = images
+            Y = labels
+            result.evaluate(X, Y, targetFPR=1e-03)
 
     elif answer == 2:
         # Choose one picture to display the process before being fed into the network
-        img = cv.imread(r"C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\Fingerprint Data\myFingerprintData\new\L_i_1.jpg")
+        img = cv.imread(r"C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\Fingerprint Data\myFingerprintData\new\L_p_2.jpg")
+
+        choice = 0
+        while (choice!=1) and (choice!=2):
+            choice = int(input("Type 1 for image process display and 2 for Minutiae of fingerprint > "))
 
         # First align and crop the image
         aligner = OrientationCrop()
         enhancer = ProcessEnhance()
-        aligner.process_and_display(img)
-        img = aligner.process(img)
-        enhancer.process_and_display(img)
+
+        if choice == 1:
+            aligner.process_and_display(img)
+            img = aligner.process(img)
+            enhancer.process_and_display(img)
+
+        elif choice == 2:
+            img = aligner.process(img)
+            img = enhancer.process(img)
+            extract_minutiae_features(img, showResult=True)
+
     elif answer == 3:
         # First get the image of the user, here lets say it's the image L_i_1.jpg again
         img = cv.imread(r"C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\Fingerprint Data\myFingerprintData\new\L_i_1.jpg")
@@ -108,7 +131,7 @@ if __name__ == "__main__":
         img = temp
         img = np.expand_dims(img, axis=-1)
         img = np.expand_dims(img, axis=0)
-        print(img.shape)
+        #print(img.shape)
         # Feeding the CNN - first load it
         embedding_model = tf.keras.models.load_model(r'C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\untrained_model.h5')
         embedding_model.load_weights(r'C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\CustomCNN_final\emb_model.h5')

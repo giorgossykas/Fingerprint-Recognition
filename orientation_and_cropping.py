@@ -39,6 +39,8 @@ class OrientationCrop:
         # Fit Ellipse to get orientation
         ellipse = cv.fitEllipse(cnt)
         (x, y), (MA, ma), angle = cv.fitEllipse(cnt)
+        if angle <= 90:
+            angle = angle + 180
         x1, y1 = x, y  # Fow displaying purposes only
         x2 = x1 + 500 * math.cos((angle - 90) * 3.1415 / 180.)  # Fow displaying purposes only
         y2 = y1 + 500 * math.sin((angle - 90) * 3.1415 / 180.)  # Fow displaying purposes only
