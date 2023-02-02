@@ -7,9 +7,10 @@ Below are all the .py and .yml files extensively described.
 - register.py : Function to save a new users' name and fingerprint embedding into the database. It is to be completed when an actual application will be deployed.
 - orientation_and_cropping.py : Contains all the classes and functions for the first step of the image processing.
 - image_enhancement.py : Contains all classes and functions to process the output image of "orientation_and_cropping.py" to make it look like a contact-based fingerprint.
-- minutiae_extraction.py : Classes and functions to extract the minutiae features of a fingerprint(output of "image_enhancement.py") and compare them to another. Tis script is   not used in the "main.py". This is because the results of the CNN were much better than tose of the minutiae. However using the class Evaluator from      "evaluation_and_testing.py" you can calculate the number of matched minutiae points between two images or even draw the ROC curve. Changing the parameter showResult to True in   the extract_minutiae_features method will display the minutiae.
+- minutiae_extraction.py : Classes and functions to extract the minutiae features of a fingerprint(output of "image_enhancement.py") and compare them to another.
 - evaluation_testing.py : Contains all the necessary methods to display and evaluate the results.
-- main.py : This is the script that through the users' input can run everything, ROC, process display, registering and matching.  
+- main.py : This is the script that through the users' input can run everything, ROC, process display, registering and matching. The ROC curve will help to choose the  
+  appropriate threshold for the matching comparisons.
 
 - Fingerprint_env.yml contains all the necessary packages and dependancies to run the main.py.
 - fingerprint_train.yml contains all the necessary packages and dependancies to train the network.  
