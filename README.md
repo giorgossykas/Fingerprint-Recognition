@@ -1,5 +1,6 @@
 # Fingerprint-Recognition
-The repository contains files for fingerprint matching using both a Convolutional Neural Network and Minutiae extraction. 
+The repository contains files for fingerprint matching using both a Convolutional Neural Network and Minutiae extraction. The processing of the finger images is shown below images.  
+![Screenshot_20230209_030411](https://user-images.githubusercontent.com/23582994/217821134-348a0f59-44bb-4468-95fb-b3c91b02b6c0.png)  
 The Jupyter Notebooks contain the code used to create and train the CNN and all the scripts for the image processing and minutiae extraction.  
 The .py files contain the code for the application of the fingerprint matching using the images from each user.  
 Below are all the .py and .yml files extensively described.  
