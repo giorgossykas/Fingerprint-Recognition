@@ -14,6 +14,7 @@ Below are all the .py and .yml files extensively described.
 
 - Fingerprint_env.yml contains all the necessary packages and dependancies to run the main.py.
 - fingerprint_train.yml contains all the necessary packages and dependancies to train the network.  
+- Images folder contains two test images to use.
 
 ## Image processing.  
 The workflow of the image processing is displayed below.  
