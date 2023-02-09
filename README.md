@@ -17,9 +17,9 @@ Below are all the .py and .yml files extensively described.
 
 ## Image processing.  
 The workflow of the image processing is displayed below.  
-![Screenshot_20230209_030411](https://user-images.githubusercontent.com/23582994/217821134-348a0f59-44bb-4468-95fb-b3c91b02b6c0.png)
+![Screenshot_20230209_030411](https://user-images.githubusercontent.com/23582994/217821134-348a0f59-44bb-4468-95fb-b3c91b02b6c0.png)  
 Then taking the cropped image:  
-
+![merge_from_ofoct(1)](https://user-images.githubusercontent.com/23582994/217827675-03e99e54-76fd-4282-b80f-79e78e3b21d6.jpg)  
 
 ## Using the CNN method :  
 If you do not want to train the network from scratch there is an already trained model which you can access and download [here](insert link). You can also download the untrained model to compare the difference in results.  
