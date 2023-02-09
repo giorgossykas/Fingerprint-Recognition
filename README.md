@@ -18,7 +18,7 @@ Below are all the .py and .yml files extensively described.
 ## Image processing.  
 The workflow of the image processing is displayed below.  
 ![Screenshot_20230209_030411](https://user-images.githubusercontent.com/23582994/217821134-348a0f59-44bb-4468-95fb-b3c91b02b6c0.png)
-Then taking the cropped image: 
+Then taking the cropped image:  
 
 
 ## Using the CNN method :  
