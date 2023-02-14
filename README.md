@@ -23,7 +23,7 @@ Then taking the cropped image:
 ![merge_from_ofoct(1)](https://user-images.githubusercontent.com/23582994/217827675-03e99e54-76fd-4282-b80f-79e78e3b21d6.jpg)  
 
 ## Using the CNN method :  
-If you do not want to train the network from scratch there is an already trained model which you can access and download [here](https://drive.google.com/drive/folders/1_SuyUE58SOivMXq-ux2pQu10yZ2ysoEZ?usp=sharing). You can also download the untrained model to compare the difference in results.  
+If you do not want to train the network from scratch there is an already trained model which you can access and download [here](https://drive.google.com/drive/folders/1_SuyUE58SOivMXq-ux2pQu10yZ2ysoEZ?usp=sharing). You need to download both models in order for it to work. You can also use the untrained model alone to compare the difference in results.  
 All the code was written in Python 3.9.  
   
 Credits: 
