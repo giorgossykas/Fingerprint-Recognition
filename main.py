@@ -117,7 +117,7 @@ if __name__ == "__main__":
 
     elif answer == 3:
         # First get the image of the user, here lets say it's the image L_i_1.jpg again
-        img = cv.imread(r"C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\Fingerprint Data\myFingerprintData\new\L_i_1.jpg")
+        img = cv.imread(r"C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\Fingerprint Data\myFingerprintData\new\R_m_2.jpg")
         aligner = OrientationCrop()
         enhancer = ProcessEnhance()
         img = aligner.process(img)
