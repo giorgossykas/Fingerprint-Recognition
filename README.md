@@ -2,7 +2,7 @@
 The repository contains files for fingerprint matching using both a Convolutional Neural Network and Minutiae extraction.
 The Jupyter Notebooks contain the code used to create and train the CNN and all the scripts for the image processing and minutiae extraction.  
 The .py files contain the code for the application of the fingerprint matching using the images from each user.  
-Below are all the .py and .yml files extensively described.  
+Below are all the .py files, .yml files and directories extensively described.  
 - train_CNN.py : Contains all the code to train the CNN. Can be run directly from the terminal on a GPU on a server.
 - register.py : Function to save a new users' name and fingerprint embedding into the database. It is to be completed when an actual application will be deployed.
 - orientation_and_cropping.py : Contains all the classes and functions for the first step of the image processing.
