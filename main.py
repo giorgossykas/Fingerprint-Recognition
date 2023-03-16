@@ -68,8 +68,8 @@ if __name__ == "__main__":
             # Their names were in the form of Li_2.jpg which stands for Left hand, index finger, second image
             # Next step is to transform every image into an embedding using the CNN  to display the ROC curve
             # First I load the embedding model
-            embedding_model = tf.keras.models.load_model(r'C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\untrained_model.h5')
-            embedding_model.load_weights(r'C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\CustomCNN_final\emb_model.h5')
+            embedding_model = tf.keras.models.load_model(r'C:\Users\giorg\Desktop\Python scripts\Fingerprint-Recognition\models\untrained_model.h5')
+            embedding_model.load_weights(r'C:\Users\giorg\Desktop\Python scripts\Fingerprint-Recognition\models\emb_model.h5')
 
             # CNN requires 356x328 images, and I have 350x350, so I must resize them first
             # and binarize them again because after the resizing they will become grayscale.
@@ -133,8 +133,8 @@ if __name__ == "__main__":
         img = np.expand_dims(img, axis=0)
         #print(img.shape)
         # Feeding the CNN - first load it
-        embedding_model = tf.keras.models.load_model(r'C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\untrained_model.h5')
-        embedding_model.load_weights(r'C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\CustomCNN_final\emb_model.h5')
+        embedding_model = tf.keras.models.load_model(r'C:\Users\giorg\Desktop\Python scripts\Fingerprint-Recognition\models\untrained_model.h5')
+        embedding_model.load_weights(r'C:\Users\giorg\Desktop\Python scripts\Fingerprint-Recognition\models\emb_model.h5')
         embedding = embedding_model.predict(img)
         # Now the euclidean distance between this embedding and all the others
         # already stored in the database will be calculated. If the distance is
@@ -162,9 +162,9 @@ if __name__ == "__main__":
 
         # Feeding the CNN - first load it
         embedding_model = tf.keras.models.load_model(
-            r'C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\untrained_model.h5')
+            r'C:\Users\giorg\Desktop\Python scripts\Fingerprint-Recognition\models\untrained_model.h5')
         embedding_model.load_weights(
-            r'C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\CustomCNN_final\emb_model.h5')
+            r'C:\Users\giorg\Desktop\Python scripts\Fingerprint-Recognition\models\emb_model.h5')
         embedding = embedding_model.predict(img)
         print(embedding)
         fullname = input("Enter your Fullname: ")
