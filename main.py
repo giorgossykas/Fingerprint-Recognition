@@ -80,7 +80,7 @@ if __name__ == "__main__":
                 temp = temp > nib_thr
                 temp = temp * 255
                 X[i, :, :] = temp
-            cv.imwrite("fingerprint.jpg", X[0])
+            cv.imwrite("Images/fingerprint.jpg", X[0])
             X = np.expand_dims(X, axis = -1)
             Y = labels
 
