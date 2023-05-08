@@ -95,8 +95,7 @@ if __name__ == "__main__":
 
     elif answer == 2:  # Display
         # Choose one picture to display the process before being fed into the network
-        img = cv.imread(r"C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\Fingerprint Data\myFingerprintData\new\L_p_2.jpg")
-
+        img = cv.imread(r"C:\Users\giorgossykas\Desktop\Python scripts\Fingerprint-Recognition\Images\L_i_2.jpg")
         choice = 0
         while (choice!=1) and (choice!=2):
             choice = int(input("Type 1 for image process display and 2 for Minutiae of fingerprint > "))
@@ -145,7 +144,7 @@ if __name__ == "__main__":
         # in the database along with the name of the individual which is asked.
         # First get the image of the user, here lets say it's the image L_i_1.jpg again
         img = cv.imread(
-            r"C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\Fingerprint Data\myFingerprintData\new\L_i_1.jpg")
+            r"C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\Fingerprint Data\myFingerprintData\new\R_m_2.jpg")
         aligner = OrientationCrop()
         enhancer = ProcessEnhance()
         img = aligner.process(img)
