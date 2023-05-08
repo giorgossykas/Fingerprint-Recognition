@@ -9,6 +9,7 @@
 import cv2 as cv
 import math
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class OrientationCrop:
@@ -22,13 +23,38 @@ class OrientationCrop:
         # Grayscale
         gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 
+        #===============================================================
+
+        y, x = np.meshgrid(np.arange(gray.shape[1]), np.arange(gray.shape[0]))
+
+        # create a new figure and a 3D axes object
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+
+        # plot the surface
+        surf = ax.plot_surface(x, y, gray)
+
+        # set the axis labels
+        ax.set_xlabel('X')
+        ax.set_ylabel('Y')
+        ax.set_zlabel('Z')
+
+        # show the plot
+        plt.show()
+
+        #==================================================================
+
         # Threshold
+        #thresh = cv.adaptiveThreshold(gray, 255, cv.ADAPTIVE_THRESH_MEAN_C, cv.THRESH_BINARY, 201, 2)
+        #ret2, thresh = cv.threshold(gray, 7, 255, cv.THRESH_BINARY+cv.THRESH_OTSU)
         _, thresh = cv.threshold(gray, 100, 255, cv.THRESH_BINARY)
+        print(gray.flatten().mean())
+        print(gray.flatten().std())
         h, w = img.shape[0], img.shape[1]
 
         # Contours - Find the real contour
         contours, hierarchy = cv.findContours(thresh, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE)
-        blank = np.zeros((h, w, 3), dtype='uint8')  # Fow displaying purposes only
+        blank = np.zeros((h, w, 3), dtype='uint8')  # For displaying purposes only
         cv.drawContours(blank, contours, -1, (0, 0, 255), 4)  # Fow displaying purposes only
         c = []
         for i, cnt in enumerate(contours):
@@ -39,11 +65,11 @@ class OrientationCrop:
         # Fit Ellipse to get orientation
         ellipse = cv.fitEllipse(cnt)
         (x, y), (MA, ma), angle = cv.fitEllipse(cnt)
-        if angle <= 90:
-            angle = angle + 180
+        #if angle <= 90:
+        #    angle = angle + 180
         x1, y1 = x, y  # Fow displaying purposes only
-        x2 = x1 + 500 * math.cos((angle - 90) * 3.1415 / 180.)  # Fow displaying purposes only
-        y2 = y1 + 500 * math.sin((angle - 90) * 3.1415 / 180.)  # Fow displaying purposes only
+        x2 = x1 + 500 * math.cos((angle - 90) * np.pi / 180.)  # Fow displaying purposes only
+        y2 = y1 + 500 * math.sin((angle - 90) * np.pi / 180.)  # Fow displaying purposes only
 
         if display:
             # Show images of all steps
@@ -67,7 +93,7 @@ class OrientationCrop:
         return angle
 
     def rotate(self, img, angle, rotPoint=None, display=False):
-        '''Returns the original image but rotated in the right direction'''
+        """Returns the original image but rotated in the right direction"""
 
         (h, w) = img.shape[:2]
 
@@ -87,16 +113,18 @@ class OrientationCrop:
         return rotated
 
     def crop(self, rotated, display=False):
-        '''
+        """
         Finds the center of the fingerprint and returns a crop of the original image
         to be passed to the next stage of preprocessing. First part is same as
         findAngle method because the contours are needed again for the new image.
-        '''
+        """
 
         # Grayscale
         gray = cv.cvtColor(rotated, cv.COLOR_BGR2GRAY)
 
         # Threshold
+        #thresh = cv.adaptiveThreshold(gray, 255, cv.ADAPTIVE_THRESH_MEAN_C, cv.THRESH_BINARY, 201, 2)
+        #_, thresh = cv.threshold(gray, 7, 255, cv.THRESH_BINARY+cv.THRESH_OTSU)
         _, thresh = cv.threshold(gray, 100, 255, cv.THRESH_BINARY)
         h, w = rotated.shape[0], rotated.shape[1]
 
@@ -125,7 +153,7 @@ class OrientationCrop:
         return cropped
 
     def process(self, img):
-        '''Runs all the methods and returns final cropped BGR image'''
+        """Runs all the methods and returns final cropped BGR image"""
         angle = self.findAngle(img)
         rotated = self.rotate(img, angle)
         cropped = self.crop(rotated)
@@ -133,7 +161,7 @@ class OrientationCrop:
 
     # This method will plot all the steps of the process.
     def process_and_display(self, img):
-        '''Runs all the methods BUT displays the result of each step'''
+        """Runs all the methods BUT displays the result of each step"""
         angle = self.findAngle(img, display=True)
         rotated = self.rotate(img, angle, display=True)
         cropped = self.crop(rotated, display=True)
