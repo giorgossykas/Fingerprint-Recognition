@@ -37,7 +37,7 @@ if __name__ == "__main__":
     answer = 0
     while (answer != 1)  and (answer != 2) and (answer != 3) and (answer != 4):
         answer = int(input("Type 1 for ROC, 2 for image processing display, 3 for database search, 4 for new user registration > "))
-    if answer == 1:
+    if answer == 1:  # ROC
         images = np.zeros((15, 350, 350))
         labels = []
 
@@ -93,10 +93,9 @@ if __name__ == "__main__":
             Y = labels
             result.evaluate(X, Y, targetFPR=1e-03)
 
-    elif answer == 2:
+    elif answer == 2:  # Display
         # Choose one picture to display the process before being fed into the network
-        img = cv.imread(r"C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\Fingerprint Data\myFingerprintData\new\L_p_2.jpg")
-
+        img = cv.imread(r"C:\Users\giorgossykas\Desktop\Python scripts\Fingerprint-Recognition\Images\L_i_2.jpg")
         choice = 0
         while (choice!=1) and (choice!=2):
             choice = int(input("Type 1 for image process display and 2 for Minutiae of fingerprint > "))
@@ -115,7 +114,7 @@ if __name__ == "__main__":
             img = enhancer.process(img)
             extract_minutiae_features(img, showResult=True)
 
-    elif answer == 3:
+    elif answer == 3:  # Database search
         # First get the image of the user, here lets say it's the image L_i_1.jpg again
         img = cv.imread(r"C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\Fingerprint Data\myFingerprintData\new\R_m_2.jpg")
         aligner = OrientationCrop()
@@ -140,12 +139,12 @@ if __name__ == "__main__":
         # already stored in the database will be calculated. If the distance is
         # below a certain threshold, selected from the ROC curve, the corresponding
         # fingerprint will be considered a match.
-    elif answer == 4:
+    elif answer == 4:  # Registration
         # Same as before (case 3) the embedding will be calculated and stored
         # in the database along with the name of the individual which is asked.
         # First get the image of the user, here lets say it's the image L_i_1.jpg again
         img = cv.imread(
-            r"C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\Fingerprint Data\myFingerprintData\new\L_i_1.jpg")
+            r"C:\Users\giorg\Desktop\Python scripts\Fingerprint recognition notebook\Fingerprint Data\myFingerprintData\new\R_m_2.jpg")
         aligner = OrientationCrop()
         enhancer = ProcessEnhance()
         img = aligner.process(img)
